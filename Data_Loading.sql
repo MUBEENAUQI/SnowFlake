@@ -1,4 +1,4 @@
-//--This is the first file i users in Snowflake
+//This is the first file i users in Snowflake
 
 USE ROLE accountadmin;
 
