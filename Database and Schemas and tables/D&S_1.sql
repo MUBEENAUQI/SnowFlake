@@ -1,0 +1,24 @@
+CREATE DATABASE test_Database;
+--this will have 2 default schemas [INFORMATION_SCHEMA AND PUBLIC SCHEMA]
+SHOW DATABASES; --SHOWS ALL DATABASES
+
+DROP DATABASE test_Database;
+
+UNDROP DATABASE test_Database;
+
+USE DATABASE test_Database;
+
+---all of there are applied for schema
+
+CREATE SCHEMA Test_Schema;
+
+SHOW SCHEMAS;
+
+DESCRIBE DATABASE test_Database; --WILL ALSO GIVE INFO ABT SCHEMA
+
+DROP SCHEMA Test_Schema;
+
+SHOW SCHEMAS;
+
+UNDROP SCHEMA Test_Schema;
+UNDROP SCHEMA Test_SchemaS; --WILL GIVE ERROR

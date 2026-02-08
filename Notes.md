@@ -60,5 +60,110 @@ Reference files:
 - named stages are referenced by [@stagename]
 - For table stages [@%stagename]
 - For user stages [@~stagename]
-- refer stages_2.sql file and stages_1.sql
+- refer stages_2.sql file and stages_1.sql and stages_Pratctice
+
+## 7. Database and Schema
+
+### Database
+
+* A **database** in Snowflake is a logical container used to organize schemas and database objects.
+* It provides isolation, access control, and structure for data.
+* One Snowflake account can have multiple databases.
+
+**Create Database**
+
+```sql
+CREATE DATABASE sales_db;
+```
+
+**Show Databases**
+
+```sql
+SHOW DATABASES;
+```
+
+---
+
+### Schema
+
+* A **schema** is a logical grouping of database objects like tables, views, stages, and functions.
+* Schemas exist **inside a database**.
+* Used to organize objects and control access.
+
+**Create Schema**
+
+```sql
+CREATE SCHEMA sales_db.raw_data;
+```
+
+**Show Schemas**
+
+```sql
+SHOW SCHEMAS IN DATABASE sales_db;
+```
+
+---
+Refer to **Database and Schemas and Tables** SQL examples:
+
+* `Database and Schemas and tables/D&S_1.sql`
+### Tables
+
+* Tables store structured data in rows and columns.
+* Snowflake automatically manages storage, indexing, and optimization.
+
+**Create Table**
+
+```sql
+CREATE TABLE sales_db.raw_data.orders (
+  order_id INT,
+  order_date DATE,
+  amount NUMBER(10,2)
+);
+```
+
+---
+
+### Fully Qualified Object Name
+
+* Snowflake objects can be referenced using:
+
+```
+DATABASE.SCHEMA.OBJECT
+```
+
+**Example**
+
+```sql
+SELECT * FROM sales_db.raw_data.orders;
+```
+
+---
+
+### Context Commands
+
+* Used to set default database and schema.
+
+```sql
+USE DATABASE sales_db;
+USE SCHEMA raw_data;
+```
+
+After setting context, object names can be used without full qualification.
+
+---
+
+### Key Interview Points
+
+* Database → top-level container
+* Schema → logical grouping inside database
+* Tables → store actual data
+* Separation helps with security, organization, and access control
+
+---
+
+
+
+
+
+
 
