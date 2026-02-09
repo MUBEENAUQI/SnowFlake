@@ -70,87 +70,17 @@ Reference files:
 * It provides isolation, access control, and structure for data.
 * One Snowflake account can have multiple databases.
 
-**Create Database**
-
-```sql
-CREATE DATABASE sales_db;
-```
-
-**Show Databases**
-
-```sql
-SHOW DATABASES;
-```
-
----
-
 ### Schema
 
 * A **schema** is a logical grouping of database objects like tables, views, stages, and functions.
 * Schemas exist **inside a database**.
 * Used to organize objects and control access.
 
-**Create Schema**
-
-```sql
-CREATE SCHEMA sales_db.raw_data;
-```
-
-**Show Schemas**
-
-```sql
-SHOW SCHEMAS IN DATABASE sales_db;
-```
-
----
-Refer to **Database and Schemas and Tables** SQL examples:
-
-* `Database and Schemas and tables/D&S_1.sql`
 ### Tables
 
 * Tables store structured data in rows and columns.
 * Snowflake automatically manages storage, indexing, and optimization.
 
-**Create Table**
-
-```sql
-CREATE TABLE sales_db.raw_data.orders (
-  order_id INT,
-  order_date DATE,
-  amount NUMBER(10,2)
-);
-```
-
----
-
-### Fully Qualified Object Name
-
-* Snowflake objects can be referenced using:
-
-```
-DATABASE.SCHEMA.OBJECT
-```
-
-**Example**
-
-```sql
-SELECT * FROM sales_db.raw_data.orders;
-```
-
----
-
-### Context Commands
-
-* Used to set default database and schema.
-
-```sql
-USE DATABASE sales_db;
-USE SCHEMA raw_data;
-```
-
-After setting context, object names can be used without full qualification.
-
----
 
 ### Key Interview Points
 
@@ -205,16 +135,6 @@ OBJECT
 Why this matters:
 Snowflake can query semi-structured data without flattening or schema changes.
 
-Example Table with Mixed Data Types
-CREATE OR REPLACE TABLE sales_db.raw.orders (
-    order_id NUMBER,
-    customer_name STRING,
-    order_date DATE,
-    order_timestamp TIMESTAMP_NTZ,
-    amount NUMBER(10,2),
-    is_active BOOLEAN,
-    order_details VARIANT
-);
 Interview One-Liner
 
 Snowflake handles both structured and semi-structured data seamlessly using the VARIANT data type, which is a major advantage over traditional data warehouses.
@@ -232,18 +152,3 @@ Views **do not store data** — they always read from the underlying tables.
 - Hide sensitive columns (security)
 - Provide a consistent interface for analytics
 - Reduce duplication of business logic
-
----
-
-### Creating a View
-```sql
-CREATE OR REPLACE VIEW analytics.orders_v AS
-SELECT
-    order_id,
-    customer_name,
-    order_date,
-    amount
-FROM sales_db.raw.orders;```
-
-### Querying a View
-SELECT * FROM analytics.orders_v;
