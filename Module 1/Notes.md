@@ -94,7 +94,21 @@ Acts as the brain of Snowflake.
 
 ---
 
-### 3.4 Query Execution Flow
+### Snowgrid (Global Data Layer)
+
+Snowgrid is Snowflake’s **global data replication and sharing layer**.
+
+### What Snowgrid Enables
+- Cross-region and cross-cloud data replication
+- Business continuity and disaster recovery
+- Secure data sharing across accounts
+- Global data access with low latency
+
+### Interview One-Liner
+> Snowgrid enables Snowflake to operate as a global data platform by supporting cross-region replication, sharing, and failover.
+--
+
+### 3.5 Query Execution Flow
 1. User submits a SQL query
 2. Cloud Services authenticates and optimizes the query
 3. A virtual warehouse executes the query
@@ -103,7 +117,7 @@ Acts as the brain of Snowflake.
 
 ---
 
-### 3.5 Architecture Advantages
+### 3.6 Architecture Advantages
 - Zero infrastructure management
 - High concurrency
 - Independent scaling
