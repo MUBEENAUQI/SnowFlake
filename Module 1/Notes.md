@@ -342,27 +342,28 @@ FROM my_table t,
 LATERAL FLATTEN(input => t.json_column) f;
 ```
 
-Snowflake Architecture (Interview-Critical)
+1. Snowflake Architecture
 
-Snowflake uses a Multi-Cluster Shared Data Architecture that separates compute, storage, and services.
-This separation is Snowflake’s biggest differentiator from traditional data warehouses.
+Snowflake uses a Multi-Cluster Shared Data Architecture that separates storage, compute, and cloud services.
+This design allows independent scaling, high concurrency, and better performance.
 
-1. High-Level Architecture
-+----------------------+
-|   Cloud Services     |
-+----------------------+
-|   Compute Layer      |
-| (Virtual Warehouses) |
-+----------------------+
-|   Storage Layer      |
-+----------------------+
-2. Storage Layer
+1.1 Core Layers in Snowflake Architecture
 
-What it does
+Snowflake architecture consists of three main layers:
 
-Stores all data centrally
+Storage Layer
 
-Uses cloud object storage (AWS S3 / Azure Blob / GCP Storage)
+Compute Layer
+
+Cloud Services Layer
+
+1.2 Storage Layer
+
+The storage layer is responsible for storing all data.
+
+Key Characteristics
+
+Uses cloud object storage (AWS S3, Azure Blob, GCP Storage)
 
 Data is automatically:
 
@@ -370,61 +371,61 @@ Compressed
 
 Encrypted
 
-Optimized (micro-partitions)
+Organized into micro-partitions
 
-Key points
+Fully managed by Snowflake
 
-Storage is independent of compute
+Important Points
 
-One copy of data is shared across all warehouses
+Storage is separate from compute
 
-No indexes needed
+A single copy of data is shared across all compute clusters
 
-Interview line
+No need for indexes or manual tuning
 
-Snowflake stores data in a centralized cloud storage layer that is fully managed, compressed, and encrypted.
+Interview line:
 
-3. Compute Layer (Virtual Warehouses)
+Snowflake stores data in a centralized, cloud-based storage layer that is fully managed and optimized.
 
-What it does
+1.3 Compute Layer (Virtual Warehouses)
 
-Executes SQL queries
+The compute layer processes queries and performs data operations.
 
-Loads data
+Virtual Warehouses
 
-Performs transformations
+Virtual warehouses are clusters of compute resources
 
-Key points
+Used for:
 
-Compute is handled by Virtual Warehouses
+Query execution
 
-Warehouses are:
+Data loading
 
-Independent
+Data transformations
 
-Scalable
+Key Characteristics
 
-Isolated (no resource contention)
+Independent and isolated
 
-Multiple warehouses can query the same data simultaneously
+Can scale up or down instantly
 
-Benefits
+Multiple warehouses can access the same data simultaneously
 
-No performance impact between users
+No resource contention between users
 
-Easy workload isolation (ETL vs BI vs Ad-hoc)
+Interview line:
 
-Interview line
+Snowflake uses virtual warehouses for compute, enabling workload isolation and independent scaling.
 
-Snowflake uses virtual warehouses for compute, allowing independent scaling and workload isolation.
+1.4 Cloud Services Layer
 
-4. Cloud Services Layer
+The cloud services layer coordinates the entire system.
 
-What it does
+Responsibilities
 
-Authentication & access control
+Authentication and access control
 
-Query optimization
+Query parsing and optimization
 
 Metadata management
 
@@ -432,76 +433,77 @@ Transaction management
 
 Result caching
 
-Key components
+Why It Matters
 
-Query parser & optimizer
+Improves query performance
 
-Metadata store
+Handles concurrency
 
-Security & governance
+Manages system metadata
 
-SQL compilation
+Interview line:
 
-Interview line
+The cloud services layer manages metadata, security, query optimization, and overall system coordination.
 
-The cloud services layer handles metadata, security, query optimization, and overall system management.
+1.5 Multi-Cluster Shared Data Architecture
 
-5. Multi-Cluster Shared Data Architecture
+Snowflake allows multiple compute clusters to operate on the same data.
 
-What it means
-
-Multiple compute clusters
-
-Shared centralized storage
-
-No data duplication
-
-Why it matters
+Benefits
 
 High concurrency
 
 High availability
 
-Elastic scaling
-
-Traditional vs Snowflake
-
-Traditional DW	Snowflake
-Compute tied to storage	Compute & storage separated
-Scaling is hard	Scale instantly
-Resource contention	Full isolation
-6. How a Query Flows in Snowflake
-
-User submits SQL
-
-Cloud Services layer:
-
-Authenticates
-
-Optimizes query
-
-Query sent to a Virtual Warehouse
-
-Warehouse fetches data from Storage layer
-
-Results returned to user
-
-Results cached (if applicable)
-
-7. Key Architecture Advantages
-
-Zero infrastructure management
-
-Pay-as-you-use
-
-High concurrency
+No data duplication
 
 Automatic scaling
 
-Strong support for semi-structured data
+Comparison with Traditional Data Warehouses
 
-8. One-Line Interview Summary
+Traditional systems tightly couple storage and compute
 
-Snowflake’s architecture separates storage, compute, and services, enabling independent scaling, high concurrency, and simplified cloud data warehousing.
+Snowflake separates them for better flexibility and performance
 
+1.6 Query Execution Flow
+
+User submits a SQL query
+
+Cloud services authenticate and optimize the query
+
+Query is executed by a virtual warehouse
+
+Warehouse retrieves data from the storage layer
+
+Results are returned to the user
+
+Results may be cached for faster future access
+
+1.7 Architecture Advantages
+
+Zero infrastructure management
+
+Pay-as-you-go pricing
+
+High concurrency support
+
+Automatic scaling
+
+Native support for semi-structured data
+
+1.8 Interview One-Liner
+
+Snowflake’s architecture separates storage, compute, and services, enabling scalable, high-performance cloud data warehousing.
+
+If you want, next I’ll:
+
+Rewrite everything from section 1 onward in this same clean MD style
+
+Add interview Q&A under each section
+
+Turn this into last-day revision notes
+
+Say the word.
+
+so i have kept all of these in a folder called module 1
 
