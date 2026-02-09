@@ -159,11 +159,91 @@ After setting context, object names can be used without full qualification.
 * Tables → store actual data
 * Separation helps with security, organization, and access control
 
+----
+
+## 14. Snowflake Table Data Types (Interview-Critical)
+
+Snowflake supports flexible, cloud-native data types. Many data types auto-scale, reducing schema rigidity compared to traditional databases.
+
 ---
 
+### Numeric Data Types
+```sql
+NUMBER        -- Generic numeric (recommended)
+NUMBER(10,2)  -- Precision and scale
+INT           -- Integer values
+FLOAT         -- Approximate numeric values
+
+Interview tip:
+NUMBER is preferred because it is flexible and avoids precision issues unless explicitly required.
+
+String Data Types
+STRING        -- Most commonly used
+VARCHAR       -- Same as STRING
+TEXT          -- Same as STRING
+
+Key point:
+Snowflake does not enforce strict length limits like VARCHAR(50) in traditional databases.
+
+Date & Time Data Types
+DATE
+TIME
+TIMESTAMP_NTZ  -- No timezone (most common)
+TIMESTAMP_LTZ  -- Local timezone
+TIMESTAMP_TZ   -- Timezone-aware
+
+Interview tip:
+TIMESTAMP_NTZ is preferred for analytics and reporting because it avoids timezone conversion complexity.
+
+Boolean Data Type
+BOOLEAN  -- TRUE / FALSE
+Semi-Structured Data Types (Key Snowflake Advantage)
+VARIANT  -- JSON, XML, Parquet
+ARRAY
+OBJECT
+
+Why this matters:
+Snowflake can query semi-structured data without flattening or schema changes.
+
+Example Table with Mixed Data Types
+CREATE OR REPLACE TABLE sales_db.raw.orders (
+    order_id NUMBER,
+    customer_name STRING,
+    order_date DATE,
+    order_timestamp TIMESTAMP_NTZ,
+    amount NUMBER(10,2),
+    is_active BOOLEAN,
+    order_details VARIANT
+);
+Interview One-Liner
+
+Snowflake handles both structured and semi-structured data seamlessly using the VARIANT data type, which is a major advantage over traditional data warehouses.
 
 
+## 15. Snowflake Views (Interview-Critical)
 
+A **view** in Snowflake is a stored SQL query that provides a logical layer over tables.  
+Views **do not store data** — they always read from the underlying tables.
 
+---
 
+### Why Use Views?
+- Simplify complex queries
+- Hide sensitive columns (security)
+- Provide a consistent interface for analytics
+- Reduce duplication of business logic
 
+---
+
+### Creating a View
+```sql
+CREATE OR REPLACE VIEW analytics.orders_v AS
+SELECT
+    order_id,
+    customer_name,
+    order_date,
+    amount
+FROM sales_db.raw.orders;```
+
+### Querying a View
+SELECT * FROM analytics.orders_v;
